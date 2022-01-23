@@ -1,17 +1,33 @@
-FROM node:16
+## stage one
+FROM node:16-alpine
 
-WORKDIR /usr/src/SimpleForms
+WORKDIR /usr
 
-ENV TZ="Europe/Berlin"
-
-RUN date
-
-COPY . .
-
-ENV NODE_ENV="production" 
+COPY package.json ./
+COPY tsconfig.json ./
+COPY index.ts ./
+COPY types.ts ./
+COPY style.css ./
+COPY tailwind.config.ts ./
+COPY src ./src
 
 RUN npm i
+RUN npm run build
+
+## stage two
+FROM node:16-alpine
+
+ENV NODE_ENV="production" 
+ENV TZ="Europe/Berlin"
+
+WORKDIR /usr
+
+COPY package.json ./
+
+RUN npm install --only=production
+
+COPY --from=0 /usr/build .
+COPY --from=0 /usr/public ./public
 
 EXPOSE 3000
-
-CMD [ "npm", "run", "start" ]
+CMD ["node","index.js"]

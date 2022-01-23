@@ -4,7 +4,7 @@ import { join } from 'path';
 import fs from 'fs';
 
 import MarkdownIt from 'markdown-it';
-import XLSX from 'XLSX';
+import xlsx from 'XLSX';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
@@ -148,7 +148,6 @@ app.post(
                 );
 
                 // Benachrichtigung über neue Anmeldung
-
                 if (res.locals.formdata.mailConfirmSelf.to) {
                     let mail = renderFile('./views/mailConfirmSelf.pug', {
                         dataForMail,
@@ -212,7 +211,7 @@ backend.get('/:formname/xlsx', [checkIfExists, auth], (req, res) => {
     db.find({ formname: req.params.formname })
         .sort({ timestamp: 1 })
         .exec((err, reports) => {
-            let wb = XLSX.utils.book_new();
+            let wb = xlsx.utils.book_new();
             wb.Props = {
                 Title: res.locals.formname,
                 CreatedDate: new Date(),
@@ -236,13 +235,13 @@ backend.get('/:formname/xlsx', [checkIfExists, auth], (req, res) => {
                 }
             );
 
-            let ws = XLSX.utils.json_to_sheet(dataForTable);
-            XLSX.utils.book_append_sheet(wb, ws, res.locals.formname);
+            let ws = xlsx.utils.json_to_sheet(dataForTable);
+            xlsx.utils.book_append_sheet(wb, ws, res.locals.formname);
             res.setHeader(
                 'Content-Disposition',
                 `attachment; filename="${res.locals.formname}.xlsx";`
             );
-            res.end(XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' }));
+            res.end(xlsx.write(wb, { type: 'buffer', bookType: 'xlsx' }));
         });
 });
 
