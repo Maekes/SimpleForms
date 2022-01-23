@@ -1,0 +1,10 @@
+extends _section.small.pug
+
+block content
+    if formdata
+        if formdata.title 
+            h1.font-bold.text-4xl.text-center.pb-5= formdata.title
+        if formdata.description    
+            p.pb-10.text-center= formdata.description
+    if error
+        h2.text-2xl.text-center.font.font-semibold.text-red-800= error

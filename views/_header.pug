@@ -1,0 +1,19 @@
+include _mixins
+include _themes
+
+doctype html
+html(lang="de")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        link(rel="stylesheet", href="/public/style.css")
+        title= formdata ? formdata.title : ""
+    body.bg-gradient-to-b.min-h-screen.py-4.sm_py-10.px-2(class=theme)
+        div.max-auto.mb-5.text-center
+            img.max-h-20.w-auto.inline-block.mr-2(src= formdata ? formdata.logo : "", alt="", srcset="")
+            span.align-bottom.text-2xl.text-white.font-semibold.relative.-bottom-2.sm_-bottom-1
+        block section
+        script(src="https://cdn.jsdelivr.net/gh/nuxodin/ie11CustomProperties@4.1.0/ie11CustomProperties.min.js")
+
+            

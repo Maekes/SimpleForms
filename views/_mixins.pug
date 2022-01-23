@@ -1,0 +1,54 @@
+- var labelClass = "font-semibold" 
+- var pClass = "text-gray-500 text-sm mb-1"
+- var inputClass = "rounded-md w-full border-gray-300"
+- var checkboxLabelClass = "mt-3 mb-4 flex"
+- var checkboxSpanClass = "ml-3 leading-5 relative top-px"
+
+
+mixin input({name, title, description, required, type, value, readonly, disabled, maxlength, minlength,min,max, pattern, placeholder})
+    fieldset.mb-6
+        label(for=name class=labelClass) #{title} 
+            span.text-red-600 #{required ? " *": ""}
+        p(class=pClass)= description
+        input(type=type, name=name, class=inputClass, required=required, value=value, readonly=readonly, disabled=disabled, maxlength=maxlength, minlength=minlength, min=min, max=max, pattern=pattern, placeholder=placeholder)
+
+mixin textArea({name, title, description, required, rows})
+    fieldset.mb-6
+        label(for=name class=labelClass) #{title} 
+            span.text-red-600 #{required ? " *": ""}
+        p(class=pClass)= description
+        textarea(type="text", name=name, class=inputClass, required=required, rows=rows || "3" )
+
+mixin checkboxInput({name, title, description, required, options})
+    fieldset.mb-3
+        legend(class=labelClass) #{title} 
+            span.text-red-600 #{required ? " *": ""}
+        p(class=pClass)= description
+        each option,index in options
+            label(class=checkboxLabelClass)
+                input(type="checkbox", name=name, value=option.value || option.title, class="rounded border-gray-300 h-5 w-5")
+                span(class=checkboxSpanClass)= option.title
+                
+mixin radioInput({name, title, description, required, values})
+    fieldset.mb-3
+        legend(class=labelClass) #{title}
+            span.text-red-600 #{required ? " *": ""}
+        p(class=pClass)= description
+        each value,index in values
+            label(class=checkboxLabelClass)
+                input(type="radio", name=name, value=value, class="border-gray-300 h-5 w-5", required=required)
+                span(class=checkboxSpanClass)= value
+                
+mixin selectInput({name, title, description, required, options})
+    fieldset.mb-6
+        legend(class=labelClass) #{title} 
+            span.text-red-600 #{required ? " *": ""}
+        p(class=pClass)= description
+        select(name=name, class=inputClass, required=required, disabled=disabled)
+            option(value="", disabled, selected, hidden)
+            each option in options
+                option(value=option.value || option.title)= option.title 
+
+mixin submit(text)
+    button(type="submit" class="w-full sm_w-auto mx-auto block text-white bg-red-700 hover_bg-red-500 px-6 py-3 rounded-lg text-lg font-semibold mt-8 leading-none")= text || "Senden"
+

@@ -1,0 +1,35 @@
+extends _section.small.pug
+
+block content
+    h1.font-bold.text-4xl.text-center.mb-5= formdata.title
+    p.mb-10.text-center= formdata.description
+    form(action="/submit/"+formname, method="post", class="mx-auto max-w-full sm_max-w-lg")
+        each field in formdata.fields
+            - field.type = field.type || "text"
+            case field.type
+                default
+                    if field.position == "left"
+                        div(class="w-1/2 inline-block pr-1 align-top")
+                            +input(field)
+                    else if field.position == "right"
+                            div(class="w-1/2 inline-block pl-1 align-top")
+                                +input(field)
+                    else
+                        +input(field)
+                when "textarea"
+                    +textArea(field)
+                when "checkbox"
+                    +checkboxInput(field)
+                when "radio"
+                    +radioInput(field)
+                when "select"
+                    +selectInput(field)
+                when "headline"
+                    h1.text-2xl.font-semibold.mb-3= field.title
+                when "info"
+                    p.mb-8= field.title
+                when "break"
+                    hr.mb-8.mt-5.border-gray-200
+        p.text-sm Mit dem Absenden erklären Sie sich damit einverstanden, dass Ihre Daten zur Bearbeitung Ihres Anliegens verwendet werden. Ihre Daten werden nicht an weitere Dritte weitergegeben. Weitere Informationen finden Sie in unserer 
+            a.text-gray-600.underline(href="http://neuss-mitte.de/datenschutz") Datenschutzerklärung
+        +submit(formdata.submitButtonText)

@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+    SimpleForms:
+        build: .
+        ports:
+            - '3000:3000'
+        volumes:
+            - /config:/usr/src/SimpleForms/config
+            - /db:/usr/src/SimpleForms/db
+        environment:
+            - MAIL_ADDRESS=
+            - MAIL_SMTP_SERVER_HOST=
+            - MAIL_SMTP_SERVER_PORT=
+            - MAIL_SMTP_SERVER_USERNAME=
+            - MAIL_SMTP_SERVER_PASSWORD=

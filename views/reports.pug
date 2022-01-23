@@ -1,0 +1,52 @@
+extends _section.small.pug
+
+block content
+    h1.font-bold.text-4xl.text-center.mb-5= formdata.title
+    p.mb-2 Anzahl der Einträge: 
+        b #{reports.length} 
+        | (Limit: #{formdata.accessible && formdata.accessible.limit ? formdata.accessible.limit : "kein Limit gesetzt"})
+    p.mb-4 Formular sichtbar vom 
+        b #{formdata.accessible && formdata.accessible.from ? formdata.accessible.from : "kein Datum gesetzt"} 
+        | bis 
+        b #{formdata.accessible && formdata.accessible.to ? formdata.accessible.to : "kein Datum gesetzt"}
+    
+    div.mb-8.grid.grid-cols-3.gap-4.text-center.font-semibold
+        a.px-4.py-2.bg-blue-700.hover_bg-blue-600.text-white.rounded-md.flex.justify-center(href="/formular/"+formname) 
+            svg(class="stroke-current text-white stroke-2 w-6 h-6 mr-1", xmlns='http://www.w3.org/2000/svg' viewbox='0 0 24 24' fill='none' stroke-linecap='round' stroke-linejoin='round')
+                path(stroke='none' d='M0 0h24v24H0z' fill='none')
+                path(d='M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5')
+                path(d='M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5')
+            | Zum Formular
+        a.px-4.py-2.bg-green-600.hover_bg-green-500.text-white.rounded-md.flex.justify-center(href="/reports/"+formname+"/xlsx")
+            svg(class="stroke-current text-white w-6 h-6 mr-1", xmlns='http://www.w3.org/2000/svg' viewbox='0 0 24 24' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round')
+                path(stroke='none' d='M0 0h24v24H0z' fill='none')
+                rect(x='4' y='4' width='16' height='16' rx='2')
+                line(x1='4' y1='10' x2='20' y2='10')
+                line(x1='10' y1='4' x2='10' y2='20')
+            | XLSX
+
+        a.px-4.py-2.bg-red-600.hover_bg-red-500.text-white.rounded-md.flex.justify-center(href="/reports/"+formname+"/pdf") 
+            svg(class="stroke-current text-white  w-6 h-6 mr-1", xmlns='http://www.w3.org/2000/svg' viewbox='0 0 24 24' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round')
+                path(stroke='none' d='M0 0h24v24H0z' fill='none')
+                path(d='M14 3v4a1 1 0 0 0 1 1h4')
+                path(d='M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z')
+                line(x1='9' y1='9' x2='10' y2='9')
+                line(x1='9' y1='13' x2='15' y2='13')
+                line(x1='9' y1='17' x2='15' y2='17')
+            | PDF
+
+         
+    each report in reports
+        details.border-l-4.border-blue-700.shadow.rounded-lg.mb-5.hover_bg-gray-50
+            summary.cursor-pointer.p-2
+                span.w-52.inline-block= report.timestamp
+                h2.font-semibold.text-lg.inline-block= report[Object.keys(report)[0]] + " " + report[Object.keys(report)[1]]
+            table.mx-7.mb-5.inline-block
+                tr.w-full 
+                        td.font-bold.px-3.py-2.align-top.border-r.capitalize Paramtername 
+                        td.font-bold.w-full.align-top.px-3.py-2 Eingabe  
+                each value, key in report 
+                    tr.w-full.border-t.border-b
+                        td.font-semibold.px-3.py-2.align-top.border-r.capitalize= key 
+                        td.w-full.align-top.px-3.py-2= value  
+

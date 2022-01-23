@@ -1,0 +1,16 @@
+extends _section.wide.pug
+
+block content
+    div.grid.grid-flow-col.gap-4.w-full.auto-rows-max
+        span.font-semibold Datum
+        each report in reports
+            span= report.timestamp
+        each field in fields
+            if (field.name)
+                span.font-semibold.row-start-1= field.name
+                each report in reports
+                    span= report[field.name]
+        
+
+           
+
