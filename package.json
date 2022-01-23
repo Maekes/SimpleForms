@@ -1,0 +1,22 @@
+{
+  "name": "simpleforms",
+  "version": "1.0.0",
+  "description": "Create forms with a simple yaml config file.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maekes/SimpleForms.git"
+  },
+  "author": "Maekes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Maekes/SimpleForms/issues"
+  },
+  "homepage": "https://github.com/Maekes/SimpleForms#readme",
+  "dependencies": {
+    "typescript": "^4.5.5"
+  }
+}
