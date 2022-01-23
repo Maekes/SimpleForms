@@ -8,7 +8,7 @@ COPY tsconfig.json ./
 COPY index.ts ./
 COPY types.ts ./
 COPY style.css ./
-COPY tailwind.config.ts ./
+COPY tailwind.config.js ./
 COPY src ./src
 
 RUN npm i
