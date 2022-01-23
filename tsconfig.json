@@ -15,6 +15,6 @@
     "sourceMap": true,
     "outDir": "./build"
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts"],
   "exclude": ["node_modules"]
 }

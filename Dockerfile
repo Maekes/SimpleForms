@@ -10,6 +10,7 @@ COPY types.ts ./
 COPY style.css ./
 COPY tailwind.config.js ./
 COPY src ./src
+COPY views ./views
 
 RUN npm i
 RUN npm run build
@@ -27,6 +28,7 @@ COPY package.json ./
 RUN npm install --only=production
 
 COPY --from=0 /usr/build .
+COPY --from=0 /usr/views ./views
 COPY --from=0 /usr/public ./public
 
 EXPOSE 3000

@@ -4,7 +4,7 @@ import { join } from 'path';
 import fs from 'fs';
 
 import MarkdownIt from 'markdown-it';
-import xlsx from 'XLSX';
+import xlsx from 'xlsx';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
