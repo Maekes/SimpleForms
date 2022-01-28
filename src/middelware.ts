@@ -15,7 +15,7 @@ export const checkLimits = (req, res, next) => {
                 }`,
             });
         } else {
-            if (data?.accessible?.limit && count >= data.accessible.limit) {
+            if (count >= data?.accessible?.limit) {
                 res.render('form-error', {
                     data,
                     error: data.accessible.message,

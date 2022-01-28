@@ -1,12 +1,12 @@
 version: '3.9'
 services:
     SimpleForms:
-        build: .
+        image: ghcr.io/maekes/simpleforms:main
         ports:
             - '3000:3000'
         volumes:
-            - /config:/usr/src/SimpleForms/config
-            - /db:/usr/src/SimpleForms/db
+            - /config:/usr/config
+            - /db:/usr/db
         environment:
             - MAIL_ADDRESS=
             - MAIL_SMTP_SERVER_HOST=

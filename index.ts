@@ -101,6 +101,7 @@ app.post(
 
                 if (mailTeplatePath) {
                     let md = new MarkdownIt({
+                        breaks: true,
                         html: true,
                     });
 
@@ -207,6 +208,15 @@ backend.get('/:formname', [checkIfExists, auth], (req, res) => {
         });
 });
 
+backend.get(
+    '/:formname/delete/:id',
+    [checkIfExists, auth],
+    (req, res: express.Response) => {
+        db.remove({ _id: req.params.id }, () => {
+            res.redirect('/reports/' + req.params.formname);
+        });
+    }
+);
 backend.get('/:formname/xlsx', [checkIfExists, auth], (req, res) => {
     db.find({ formname: req.params.formname })
         .sort({ timestamp: 1 })
