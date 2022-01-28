@@ -43,6 +43,8 @@
         "jspdf": "^2.5.0",
         "jspdf-autotable": "^3.5.23",
         "markdown-it": "^12.3.2",
+        "moment": "^2.29.1",
+        "moment-timezone": "^0.5.34",
         "nedb": "^1.8.0",
         "nodemailer": "^6.7.2",
         "pug": "^3.0.2",

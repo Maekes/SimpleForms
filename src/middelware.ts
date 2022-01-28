@@ -3,6 +3,7 @@ import basicAuth from 'express-basic-auth';
 import { db } from './database';
 import * as Templates from './templates';
 import yaml from 'js-yaml';
+import moment from 'moment-timezone';
 
 export const checkLimits = (req, res, next) => {
     let formname = req.params.formname;
@@ -15,7 +16,13 @@ export const checkLimits = (req, res, next) => {
                 }`,
             });
         } else {
-            if (count >= data?.accessible?.limit) {
+            moment().tz('Europe/Berlin');
+
+            if (
+                count >= data?.accessible?.limit ||
+                moment(data?.accessible?.to, 'DD.MM.YYYY HH:mm').isBefore() ||
+                moment(data?.accessible?.from, 'DD.MM.YYYY HH:mm').isAfter()
+            ) {
                 res.render('form-error', {
                     data,
                     error: data.accessible.message,
